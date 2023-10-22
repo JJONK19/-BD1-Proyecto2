@@ -56,3 +56,52 @@ END;
 $$
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS bdp2.validarCiclo;
+
+DELIMITER $$
+$$
+CREATE FUNCTION bdp2.validarCiclo(
+	ciclo VARCHAR(2)
+)
+RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+	DECLARE resultado BOOLEAN;
+	
+	IF ciclo = '1S' OR ciclo = '2S' OR ciclo = 'VJ' OR ciclo = 'VD' THEN 
+		SET resultado = TRUE;
+	ELSE 
+		SET resultado = FALSE;
+	END IF;
+	
+	RETURN resultado;
+END$$
+DELIMITER ;
+
+
+DROP FUNCTION IF EXISTS bdp2.validarHorario;
+
+DELIMITER $$
+$$
+CREATE FUNCTION bdp2.validarHorario(
+	entrada VARCHAR(20)
+)
+RETURNS BOOLEAN
+DETERMINISTIC
+BEGIN
+	DECLARE resultado BOOLEAN;
+	
+	-- Eliminar espacios
+	SET entrada = REPLACE(entrada, ' ', '');
+
+	-- Verificar 
+	IF entrada REGEXP '^([01]\d|2[0-3]):([0-5]\d)-([01]\d|2[0-3]):([0-5]\d)$' THEN
+		SET resultado = TRUE;
+	ELSE 
+		SET resultado = FALSE;
+	END IF;
+
+	RETURN resultado;
+END$$
+DELIMITER ;
+
