@@ -71,8 +71,8 @@ BEGIN
 	END IF;
 	
 	-- Generar el acta.
-	INSERT INTO acta(anio, curso_ciclo, fecha)
-	VALUES (anioActual, idCursoCiclo, CURRENT_TIMESTAMP);
+	INSERT INTO acta(anio, curso_ciclo, fecha, noNotas)
+	VALUES (anioActual, idCursoCiclo, CURRENT_TIMESTAMP, notasRegistradas); 
  
 	SELECT 'Mensaje: Acta generada correctamente.' AS Salida;
 	
